@@ -1,101 +1,28 @@
 package com.mycompany.regularexpmatching10;
 
-public class Solution {
-    public boolean isMatch(String s, String p) {
-        if (s == null || p == null || p.isEmpty() || p.startsWith("*")) return false;
-        if (".*".equals(p)) return true;
-
-        return (findSolution(s, p));
+// 492ms Beats 13.41%. 41.83MB Beats 94.07%
+public class SecondSolution {
+    public boolean isMatch(final String s, final String p) {
+        return isMatch(s, 0, p, 0);
     }
 
-    private boolean findSolution(String s, String pattern) {
-        char pchar = 0;
-        int p = 0;
-        boolean subMatch = true;
-        int i=0;
-        while (true) {
-            boolean isStar = false;
-            boolean isDot = false;
-            switch (pattern.charAt(p)) {
-                case '.':
-                    isDot = true;
-                    break;
-                case '*':
-                    isStar = true;
-                    pchar = pattern.charAt(p - 1);
-                    break;
-                default:
-                    pchar = pattern.charAt(p);
-                    break;
-            }
+    private static boolean matchFirst(String s, int i, String p, int j) {
+        if (j == p.length()) return i == s.length();
+        if (i == s.length()) return j == p.length();
+        return p.charAt(j) == '.' || s.charAt(i) == p.charAt(j);
+    }
 
-            if (isDot) {
-                if (s.isEmpty()) {
-                    subMatch = false;
-                    break;
-                }
-                p++;
-                i++;
-            } else if (isStar) {
-                if (s.isEmpty() && p<pattern.length()-1) return findSolution(s, pattern.substring(p+1));
-                if (pchar == '.') {
-                    // if * is not at the end of the pattern, still need to move to right.
-                    if (p<pattern.length()-1 && pattern.charAt(p+1) == s.charAt(i)) {
-                        p++;
-                        subMatch = true;
-                    } else if (p<pattern.length()-1 && pattern.charAt(p+1) != s.charAt(i)) {
-                        subMatch = false;
-                        i++;
-                    } else {
-                        i++;
-                    }
-                } else if (s.charAt(i) != pchar) {
-                    p++;
-                } else {
-                    i++;
-                }
-            } else {
-                if (s.isEmpty()) {
-                    if( p + 1 == pattern.length()-1 &&
-                        pattern.charAt(p + 1) == '*') {
-                        break;
-                    } else {
-                        subMatch = false;
-                        break;
-                    }
-                }
-
-                if (s.charAt(i) == pchar) {
-                    i++;
-                    p++;
-                } else if (s.charAt(i) != pchar &&
-                        p + 1 < pattern.length() &&
-                        pattern.charAt(p + 1) == '*') {
-                    p++;
-                } else {
-                    subMatch = false;
-                    break;
-                }
-            }
-
-            if (i == s.length() && p == pattern.length()) {
-                break;
-            }
-
-            if (i == s.length() && p < pattern.length()) {
-                if (pattern.charAt(p) != '*') {
-                    subMatch = findSolution("", pattern.substring(p));
-                } else if (p < pattern.length()-1) {
-                    subMatch = findSolution(s.substring(i-1), pattern.substring(p+1));
-                }
-                break;
-            }
-
-            if (i < s.length() && p == pattern.length()) {
-                subMatch = false;
-                break;
-            }
+    private static boolean isMatch(String s, int i, String p, int j) {
+        if (j == p.length()) return i == s.length();
+        // next char is not '*', then must match current character
+        if (j == p.length() - 1 || p.charAt(j + 1) != '*') {
+            if (matchFirst(s, i, p, j)) return isMatch(s, i + 1, p, j + 1);
+            else return false;
+        } else { // next char is '*'
+            if (isMatch(s, i, p, j + 2)) return true;  // try the length of 0
+            while (matchFirst(s, i, p, j))  // try all possible lengths
+                if (isMatch(s, ++i, p, j + 2)) return true;
+            return false;
         }
-        return subMatch;
     }
 }

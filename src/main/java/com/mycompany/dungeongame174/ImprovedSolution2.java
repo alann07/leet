@@ -1,12 +1,11 @@
 package com.mycompany.dungeongame174;
 
-// top-down dp is still slow, as some cell, based on different paths, has different values nad need to recalculate and hence increase latency.
-public class ImprovedSolution {
+// use bottom-up approach.
+// 0ms Beats 100.00%, 45.15MB Beats 65.34%
+public class ImprovedSolution2 {
     public int calculateMinimumHP(int[][] dungeon) {
         Integer[][] dp = new Integer[dungeon.length][dungeon[0].length];
-        int minVal = findSolution(dungeon, 0, 0, Integer.MAX_VALUE, 0, dp);
-        if (minVal > 0) return 1;
-        else return 1-minVal;
+        return findSolution(dungeon, 0, 0, dp);
     }
 
     /**
@@ -14,29 +13,37 @@ public class ImprovedSolution {
      * @param dungeon
      * @param row
      * @param col
-     * @param lastMin
-     * @param sum
      * @return min of (sum, lastMin)
      */
-    private int findSolution(int[][] dungeon, int row, int col, int lastMin, int sum, Integer[][] dp) {
-        sum += dungeon[row][col];
-        lastMin = Math.min(lastMin, sum);
+    private int findSolution(int[][] dungeon, int row, int col, Integer[][] dp) {
         if (row == dungeon.length-1 && col == dungeon[0].length-1)  {
-            if (dp[row][col] == null ||  dp[row][col] < lastMin) dp[row][col] = lastMin;
+            if (dp[row][col] == null) {
+                dp[row][col] = Math.max(1-dungeon[row][col], 1);
+            }
             return dp[row][col];
         }
 
+        // Last row
         if (row == dungeon.length-1) {
-            if (dp[row][col] == null || dp[row][col] < lastMin) dp[row][col] = Math.min(lastMin, findSolution(dungeon, row, col+1, lastMin, sum, dp));
-            return dp[row][col];
-        }
-        if (col == dungeon[0].length-1) {
-            if (dp[row][col] == null || dp[row][col] < lastMin) dp[row][col] = Math.min(lastMin, findSolution(dungeon, row+1, col, lastMin, sum, dp));
+            if (dp[row][col] == null) {
+                dp[row][col] = Math.max(findSolution(dungeon, row, col + 1, dp) - dungeon[row][col], 1);
+            }
             return dp[row][col];
         }
 
-        if (dp[row][col] == null  || dp[row][col] < lastMin) dp[row][col] = Math.max(findSolution(dungeon, row, col+1, lastMin, sum, dp),
-                findSolution(dungeon, row+1, col, lastMin, sum, dp));
+        // Last col
+        if (col == dungeon[0].length-1) {
+            if (dp[row][col] == null)  {
+                dp[row][col] = Math.max(findSolution(dungeon, row + 1, col, dp) - dungeon[row][col], 1);
+            }
+            return dp[row][col];
+        }
+
+        if (dp[row][col] == null) {
+            int right = Math.max(findSolution(dungeon, row, col+1, dp) - dungeon[row][col] , 1);
+            int down = Math.max(findSolution(dungeon, row+1, col, dp) - dungeon[row][col] , 1);
+            dp[row][col] = Math.min(right, down);
+        }
         return dp[row][col];
     }
 }

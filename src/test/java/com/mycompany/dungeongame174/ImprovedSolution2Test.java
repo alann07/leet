@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ImprovedSolutionTest {
+public class ImprovedSolution2Test {
     @Test
     public void testSolution() {
         long startTime = System.currentTimeMillis();
 
-        ImprovedSolution solution = new ImprovedSolution();
+        ImprovedSolution2 solution = new ImprovedSolution2();
         int[][] input = {{ -2,-3},{-5,-10}};
         int result = solution.calculateMinimumHP(input);
         assertEquals(16, result);

@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SolutionTest {
+public class SecondSolutionTest {
 
     @Test
     public void testSolution() {
         long startTime = System.currentTimeMillis();
-        Solution solution = new Solution();
+        SecondSolution solution = new SecondSolution();
         boolean result = solution.isMatch("aa", "a");
         assertFalse(result);
 
@@ -72,7 +72,7 @@ public class SolutionTest {
         assertTrue(result);
 
         result = solution.isMatch("abcdddbbbc", "abc.*d*c");
-        assertFalse(result);
+        assertTrue(result);
 
         result = solution.isMatch("a", "ab*");
         assertTrue(result);

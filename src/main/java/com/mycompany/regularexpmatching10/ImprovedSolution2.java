@@ -1,93 +1,43 @@
 package com.mycompany.regularexpmatching10;
 
-public class Solution {
+public class ImprovedSolution2 {
     public boolean isMatch(String s, String p) {
         if (s == null || p == null || p.isEmpty() || p.startsWith("*")) return false;
         if (".*".equals(p)) return true;
 
-        return (findSolution(s, p));
+        return (findSolution(s, 0, p, 0));
     }
 
-    private boolean findSolution(String s, String pattern) {
-        char pchar = 0;
-        int p = 0;
+    private boolean findSolution(String s, int i, String pattern, int p) {
         boolean subMatch = true;
-        int i=0;
         while (true) {
-            boolean isStar = false;
-            boolean isDot = false;
-            switch (pattern.charAt(p)) {
-                case '.':
-                    isDot = true;
-                    break;
-                case '*':
-                    isStar = true;
-                    pchar = pattern.charAt(p - 1);
-                    break;
-                default:
-                    pchar = pattern.charAt(p);
-                    break;
-            }
+            if (pattern.length() == p) return s.length() == i;
+            boolean isStar = pattern.charAt(p) == '*';
 
-            if (isDot) {
-                if (s.isEmpty()) {
-                    subMatch = false;
-                    break;
-                }
-                p++;
-                i++;
-            } else if (isStar) {
-                if (s.isEmpty() && p<pattern.length()-1) return findSolution(s, pattern.substring(p+1));
-                if (pchar == '.') {
-                    // if * is not at the end of the pattern, still need to move to right.
-                    if (p<pattern.length()-1 && pattern.charAt(p+1) == s.charAt(i)) {
-                        p++;
-                        subMatch = true;
-                    } else if (p<pattern.length()-1 && pattern.charAt(p+1) != s.charAt(i)) {
-                        subMatch = false;
-                        i++;
-                    } else {
-                        i++;
+            if (!isStar) {
+                if (p==pattern.length()-1 || pattern.charAt(p+1) != '*') {
+                    if (!areCharsMatching(s, i, pattern, p)) {
+                        return false;
                     }
-                } else if (s.charAt(i) != pchar) {
+                    i++;
                     p++;
                 } else {
-                    i++;
+                    if (findSolution(s, i, pattern, p+2)) {
+                        return true;
+                    }
+                    if (!areCharsMatching(s, ++i, pattern, p)) {
+                        p = p + 2;
+                    }
+                    else if (!areCharsMatching(s, i-1, pattern, p)) {
+                        return false;
+                    }
+//                    i++;
                 }
             } else {
-                if (s.isEmpty()) {
-                    if( p + 1 == pattern.length()-1 &&
-                        pattern.charAt(p + 1) == '*') {
-                        break;
-                    } else {
-                        subMatch = false;
-                        break;
-                    }
-                }
-
-                if (s.charAt(i) == pchar) {
-                    i++;
-                    p++;
-                } else if (s.charAt(i) != pchar &&
-                        p + 1 < pattern.length() &&
-                        pattern.charAt(p + 1) == '*') {
-                    p++;
-                } else {
-                    subMatch = false;
-                    break;
-                }
+                p++;
             }
 
             if (i == s.length() && p == pattern.length()) {
-                break;
-            }
-
-            if (i == s.length() && p < pattern.length()) {
-                if (pattern.charAt(p) != '*') {
-                    subMatch = findSolution("", pattern.substring(p));
-                } else if (p < pattern.length()-1) {
-                    subMatch = findSolution(s.substring(i-1), pattern.substring(p+1));
-                }
                 break;
             }
 
@@ -97,5 +47,11 @@ public class Solution {
             }
         }
         return subMatch;
+    }
+
+    private boolean areCharsMatching(String s, int i, String pattern, int p) {
+        if (s.length() <= i) return pattern.length() == p;
+        if (pattern.length() == p) return s.length() == i;
+        return pattern.charAt(p) == '.' || pattern.charAt(p) == s.charAt(i);
     }
 }

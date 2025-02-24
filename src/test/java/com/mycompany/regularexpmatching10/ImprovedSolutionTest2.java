@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ImprovedSolutionTest {
+public class ImprovedSolutionTest2 {
 
     @Test
     public void testSolution() {
         long startTime = System.currentTimeMillis();
-        ImprovedSolution solution = new ImprovedSolution();
+        ImprovedSolution2 solution = new ImprovedSolution2();
         boolean result = solution.isMatch("aa", "a");
         assertFalse(result);
 
@@ -121,6 +121,15 @@ public class ImprovedSolutionTest {
 
         result = solution.isMatch("ab", ".*..");
         assertTrue(result);
+
+        result = solution.isMatch("sissippi", "s*is*p*.");
+        assertFalse(result);
+
+        result = solution.isMatch("mississippi", "mis*is*p*.");
+        assertFalse(result);
+
+        result = solution.isMatch("aaa", "ab*a");
+        assertFalse(result);
 
         long endTime = System.currentTimeMillis();
         System.out.println("Time taken: " + (endTime - startTime) + " ms");
