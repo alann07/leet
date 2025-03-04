@@ -1,5 +1,6 @@
 package com.mycompany.numbsttrees96;
 
+// Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes of unique values from 1 to n.
 // DP with only recursive is slow.
 // 1240ms Beats 9.54% 40.48MB Beats 48.99%
 public class Solution {
