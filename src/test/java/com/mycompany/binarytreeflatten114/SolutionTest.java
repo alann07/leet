@@ -29,6 +29,7 @@ public class SolutionTest {
         root = new TreeNode(1, null, new TreeNode(3));
         solution.flatten(root);
         assertEquals(3, root.right.val);
+        assertNull(root.right.right);
 
         root = new TreeNode(1, new TreeNode(3), null);
         solution.flatten(root);
@@ -37,7 +38,6 @@ public class SolutionTest {
         root = new TreeNode(1, new TreeNode(3, null, new TreeNode(2)), null);
         solution.flatten(root);
         assertEquals(2, root.right.right.val);
-
 
         root = new TreeNode(1, new TreeNode(2, new TreeNode(3), null), null);
         solution.flatten(root);
@@ -51,5 +51,10 @@ public class SolutionTest {
         solution.flatten(root);
         assertEquals(4, root.right.right.right.val);
         assertEquals(6, root.right.right.right.right.right.val);
+
+        root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3), null));
+        solution.flatten(root);
+        assertEquals(3, root.right.right.val);
+        assertNull(root.right.right.right);
     }
 }

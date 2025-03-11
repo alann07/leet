@@ -13,6 +13,8 @@ import java.util.List;
  * The "linked list" should be in the same order as a pre-order traversal of the binary tree.
  *
  * Try move left tree to right node and append original right node under it.
+ *
+ * 0ms Beats 100.00%, 42.52MB Beats 17.61%
  */
 public class ImprovedSolution2 {
 
@@ -24,10 +26,13 @@ public class ImprovedSolution2 {
             temp = new TreeNode(root.right.val, root.right.left, root.right.right);
         }
 
+        TreeNode lastNode = null;
         if (root.left != null) {
             root.right = new TreeNode();
+            lastNode = flattenNode(root.right, root.left);
+        } else {
+            lastNode = root;
         }
-        TreeNode lastNode = flattenNode(root.right, root.left);
         if (temp != null) {
             if (lastNode.right == null) lastNode.right = new TreeNode();
             flattenNode(lastNode.right, temp);
@@ -42,6 +47,7 @@ public class ImprovedSolution2 {
             curr = new TreeNode();
         }
         curr.val = child.val;
+        curr.left = null;
 
         TreeNode temp = null;
         if (child.right != null) {
