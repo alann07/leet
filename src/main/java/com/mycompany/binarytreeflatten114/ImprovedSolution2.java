@@ -21,57 +21,39 @@ public class ImprovedSolution2 {
     public void flatten(TreeNode root) {
         if (root == null) return;
 
-        TreeNode temp = null;
-        if (root.right != null) {
-            temp = new TreeNode(root.right.val, root.right.left, root.right.right);
-        }
-
-        TreeNode lastNode = null;
-        if (root.left != null) {
-            root.right = new TreeNode();
-            lastNode = flattenNode(root.right, root.left);
-        } else {
-            lastNode = root;
-        }
-        if (temp != null) {
-            if (lastNode.right == null) lastNode.right = new TreeNode();
-            flattenNode(lastNode.right, temp);
-        }
+        flattenNode(root, root);
         root.left = null;
     }
 
     private TreeNode flattenNode(TreeNode curr, TreeNode child) {
         if (child == null) {
             return curr;
-        } else if (curr == null) {
-            curr = new TreeNode();
         }
+
         curr.val = child.val;
-        curr.left = null;
 
-        TreeNode temp = null;
-        if (child.right != null) {
-            temp = new TreeNode(child.right.val, child.right.left, child.right.right);
-        }
-
-        TreeNode lastNode = null;
+        TreeNode tempStoreForRightNode = null;
+        TreeNode lastNode;
         if (child.left != null) {
+            if (child.right != null) {
+                tempStoreForRightNode = new TreeNode(child.right.val, child.right.left, child.right.right);
+            }
             curr.right = new TreeNode();
             lastNode = flattenNode(curr.right, child.left);
+            curr.left = null;
         } else {
-            lastNode = curr;
+            if (child.right != null) {
+                if (curr.right == null) curr.right = new TreeNode();
+                lastNode = flattenNode(curr.right, child.right);
+            } else {
+                lastNode = curr;
+            }
         }
-        if (temp != null) {
+        if (tempStoreForRightNode != null) {
             if (lastNode.right == null) lastNode.right = new TreeNode();
-            lastNode = flattenNode(lastNode.right, temp);
+            lastNode = flattenNode(lastNode.right, tempStoreForRightNode);
         }
         lastNode.left = null;
         return lastNode;
     }
-
-//    private void getPreOrderResult(TreeNode curr, List<Integer> result) {
-//        result.add(curr.val);
-//        if (curr.left != null) getPreOrderResult(curr.left, result);
-//        if (curr.right != null) getPreOrderResult(curr.right, result);
-//    }
 }
