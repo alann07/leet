@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SolutionTest {
     @Test
     public void testSolution() {
-        Solution solution = new Solution();
+//        Solution solution = new Solution();
+//        ImprovedSolution solution = new ImprovedSolution();
+        ImprovedSolution2 solution = new ImprovedSolution2();
         char[][] grid = new char[][] {{'1','1','0'},{'0','1','0'}};
         assertEquals(1, solution.numIslands(grid));
 
