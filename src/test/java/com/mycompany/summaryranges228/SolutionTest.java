@@ -10,7 +10,8 @@ public class SolutionTest {
 
     @Test
     public void testSolution() {
-        Solution solution = new Solution();
+//        Solution solution = new Solution();
+        ImprovedSolution solution = new ImprovedSolution();
         int[] input = new int[]{0,1,2,4,5,7};
         List<String> result = solution.summaryRanges(input);
         System.out.println(result);
