@@ -1,4 +1,4 @@
-package com.mycompany.longestsubstringnorepeat;
+package com.mycompany.longestsubstringnorepeat3;
 
 import java.util.HashMap;
 import java.util.Map;

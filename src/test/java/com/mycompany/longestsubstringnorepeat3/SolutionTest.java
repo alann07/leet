@@ -1,14 +1,13 @@
-package com.mycompany.longestsubstringnorepeat;
+package com.mycompany.longestsubstringnorepeat3;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ImprovedSolutionTest {
-
+public class SolutionTest {
     @Test
     public void testSolution() {
-        ImprovedSolution solution = new ImprovedSolution();
+        Solution solution = new Solution();
         assertEquals(0, solution.lengthOfLongestSubstring(null));
         assertEquals(0, solution.lengthOfLongestSubstring(""));
         assertEquals(1, solution.lengthOfLongestSubstring("a"));

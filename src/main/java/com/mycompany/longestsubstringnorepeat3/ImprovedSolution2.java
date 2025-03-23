@@ -1,8 +1,8 @@
-package com.mycompany.longestsubstringnorepeat;
+package com.mycompany.longestsubstringnorepeat3;
 
-public class ImprovedSolution3 {
+public class ImprovedSolution2 {
 
-    //  2 ms. Beat 98.54%.  42.81 MB, beat 98.67%.
+    //  206 ms. worst
     public int lengthOfLongestSubstring(String s) {
         if (s == null) return 0;
         int length = s.length();
@@ -17,16 +17,15 @@ public class ImprovedSolution3 {
         while (true) {
             char c = s.charAt(currIndex);
 
-            int start = currIndex-currSubLength;
-            firstOccurIndex = indexOfFirstOccrence(s, c, start, currIndex);
+            firstOccurIndex = indexOfFirstOccrence(s, c,currIndex-currSubLength, currIndex);
             if (firstOccurIndex >=0) {
                 if (currSubLength > maxLength) {
                     maxLength = currSubLength;
                 }
-//                if (maxLength > length-currIndex-1) break;
+                currIndex = firstOccurIndex + 1;
+                if (maxLength > length-currIndex-1) break;
 
-                currSubLength =  currSubLength - (firstOccurIndex - start + 1) + 1;
-                currIndex++;
+                currSubLength = 0;
             } else {
                 currSubLength++;
                 currIndex++;

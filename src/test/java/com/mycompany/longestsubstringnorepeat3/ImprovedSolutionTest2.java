@@ -1,4 +1,4 @@
-package com.mycompany.longestsubstringnorepeat;
+package com.mycompany.longestsubstringnorepeat3;
 
 import org.junit.jupiter.api.Test;
 
