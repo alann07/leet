@@ -8,7 +8,8 @@ public class ImprovedSolutionTest3 {
 
     @Test
     public void testSolution3() {
-        ImprovedSolution3 solution = new ImprovedSolution3();
+//        ImprovedSolution3 solution = new ImprovedSolution3();
+        ReviewSolution4 solution = new ReviewSolution4();
         assertEquals(0, solution.lengthOfLongestSubstring(null));
         assertEquals(0, solution.lengthOfLongestSubstring(""));
         assertEquals(1, solution.lengthOfLongestSubstring("a"));
@@ -23,5 +24,6 @@ public class ImprovedSolutionTest3 {
         assertEquals(3, solution.lengthOfLongestSubstring("abcabcbb"));
         assertEquals(3, solution.lengthOfLongestSubstring("pwwkew"));
         assertEquals(4, solution.lengthOfLongestSubstring("abcadcbb"));
+        assertEquals(4, solution.lengthOfLongestSubstring("abacd"));
     }
 }
