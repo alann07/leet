@@ -11,21 +11,21 @@ public class ReviewSolution4 {
         if (length == 1) return 1;
 
         // treat the first element as 1 count, as the loop start with the 2nd element.
-        int start = 0, maxLen = 1, currIndex = 1;
+        int start = 0, maxLen = 1, currIndex = 1, currLen = 0;
         char currChar;
 
         while (true) {
             currChar = s.charAt(currIndex);
-            while (indexOfFirstOccrence(s, currChar, start, currIndex) == -1){
-                if (currIndex-start+1 > maxLen) maxLen = currIndex-start+1;
+            if (indexOfFirstOccrence(s, currChar, start, currIndex) == -1){
+                currLen = currIndex-start+1;
+                if (currLen > maxLen) maxLen = currLen;
                 currIndex++;
-                if (currIndex < length) {
-                    currChar = s.charAt(currIndex);
-                } else return maxLen;
+                if (currIndex == length) break;
+            } else {
+                start++;
             }
-            start++;
         }
-//        return maxLen;
+        return maxLen;
     }
 
     private int indexOfFirstOccrence(String s, char c, int start, int end) {

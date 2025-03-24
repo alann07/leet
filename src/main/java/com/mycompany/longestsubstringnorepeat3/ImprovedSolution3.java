@@ -23,14 +23,11 @@ public class ImprovedSolution3 {
                 if (currSubLength > maxLength) {
                     maxLength = currSubLength;
                 }
-//                if (maxLength > length-currIndex-1) break;
-
                 currSubLength =  currSubLength - (firstOccurIndex - start + 1) + 1;
-                currIndex++;
             } else {
                 currSubLength++;
-                currIndex++;
             }
+            currIndex++;
 
             if (currIndex == length) {
                 if (currSubLength > maxLength) {
