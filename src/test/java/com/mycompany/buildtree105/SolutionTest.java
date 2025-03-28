@@ -78,5 +78,23 @@ public class SolutionTest {
         assertEquals(4, result.right.val);
         assertEquals(2, result.left.right.val);
         assertNull(result.left.left);
+
+        preOrder = new int[]{4,2,1,3};
+        inOrder = new int[]{1,2,3,4};
+        result = solution.buildTree(preOrder, inOrder);
+        assertEquals(4, result.val);
+        assertEquals(2, result.left.val);
+        assertEquals(1, result.left.left.val);
+        assertEquals(3, result.left.right.val);
+        assertNull(result.right);
+
+        preOrder = new int[]{4,2,1,3};
+        inOrder = new int[]{4,1,2,3};
+        result = solution.buildTree(preOrder, inOrder);
+        assertEquals(4, result.val);
+        assertEquals(2, result.right.val);
+        assertEquals(1, result.right.left.val);
+        assertEquals(3, result.right.right.val);
+        assertNull(result.left);
     }
 }
