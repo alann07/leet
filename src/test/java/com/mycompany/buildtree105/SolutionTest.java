@@ -8,7 +8,8 @@ public class SolutionTest {
 
     @Test
     public void testSolution() {
-        Solution solution = new Solution();
+//        Solution solution = new Solution();
+        ImprovedSolution solution = new ImprovedSolution();
         int[] preOrder = {-1};
         int[] inOrder = {-1};
         TreeNode result = solution.buildTree(preOrder, inOrder);
