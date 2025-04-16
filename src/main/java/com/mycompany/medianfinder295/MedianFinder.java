@@ -17,6 +17,7 @@ import java.util.PriorityQueue;
  * double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual
  * answer will be accepted.
  *
+ * https://www.youtube.com/watch?app=desktop&v=SdURPlHqc1g&t=178
  * 111ms Beats 45.06%, 63.80 MB Beats 57.31%
  */
 public class MedianFinder {
