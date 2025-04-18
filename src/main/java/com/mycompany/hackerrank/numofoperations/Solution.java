@@ -1,4 +1,4 @@
-package com.mycompany.numofoperations;
+package com.mycompany.hackerrank.numofoperations;
 
 /**
  * From Blue Origin
