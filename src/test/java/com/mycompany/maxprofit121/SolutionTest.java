@@ -8,7 +8,7 @@ public class SolutionTest {
 
     @Test
     public void testSolution() {
-        Solution solution = new Solution();
+        ImprovedSolution solution = new ImprovedSolution();
         int[] input = {7,1,5,3,6,4};
         assertEquals(5, solution.maxProfit(input));
 
