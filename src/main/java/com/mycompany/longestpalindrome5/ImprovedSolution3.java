@@ -11,6 +11,8 @@ package com.mycompany.longestpalindrome5;
  * Beats 94.6%.
  *
  * 198ms Beats 24.47%, 42.02MB Beats 94.60%
+ * 178ms Beats 27.82% (another running after removing checking for isPalindrome for those already shorter than
+ * the length of existing maxSubString
  **/
 public class ImprovedSolution3 {
     public String longestPalindrome(String s) {
@@ -21,7 +23,7 @@ public class ImprovedSolution3 {
     private String dp(String s, int index, String maxSubString) {
         if (index >= s.length()) return "";
         for(int i=s.length()-1; i>index; i--) {
-            if (isPalindrome(s, index, i)) {
+            if (i-index+1 > maxSubString.length() && isPalindrome(s, index, i)) {
                 if (i+1-index > maxSubString.length()) {
                     maxSubString = s.substring(index, i+1);
                 }
